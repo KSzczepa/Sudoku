@@ -79,7 +79,7 @@ bool Board::add(int row, int col, int value) {
     }
 };
 
-// Funkcja sprawdzaj¹ca, czy liczba mo¿e byæ umieszczona na planszy
+//A function that checks whether a number can be placed on the board
 bool Board::isSafe(const std::vector<std::vector<int>>& board, int row, int col, int num) {
     // Check if we find the same num
     // in the similar row , we
