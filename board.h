@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include "types.h"
 
 class Board {
     int length = 9;
@@ -20,20 +21,21 @@ class Board {
     };
     */
 
-    //array to vector
     std::vector<std::vector<int>> defaultBoard;
+    int numToRemove = 40;
 
 
 public:
     std::vector<std::vector<int>> currentBoard;
+    level_e level = EASY;
 
     Board() {
 
-        // Zmiana rozmiaru na 9x9
-        currentBoard.resize(9); // Zmiana rozmiaru g³ównego wektora na 9
+        // Set size to 9x9
+        currentBoard.resize(9);
         defaultBoard.resize(9);
         for (int i = 0; i < 9; ++i) {
-            currentBoard[i].resize(9); // Zmiana rozmiaru ka¿dego wewnêtrznego wektora na 9
+            currentBoard[i].resize(9);
             defaultBoard[i].resize(9);
         }
 
@@ -49,12 +51,18 @@ public:
     void print();
     bool checkIfCompleted();
     void clearBoard();
-    bool isInBounds(int val);
     bool add(int row, int col, int value);
-    bool isSafe(const std::vector<std::vector<int>>& board, int row, int col, int num);
     bool solveSudoku(std::vector<std::vector<int>>& board, int row = 0, int col = 0);
-    void generateSudoku();
     void removeNumbers(std::vector<std::vector<int>>& board, int numToRemove);
     void newGame();
+    void setGameLevel(level_e lvl);
+
+protected:
+    void setNumToRemove(int num);
+    int getNumToRemove();
+    void generateSudoku();
+    bool isSafe(const std::vector<std::vector<int>>& board, int row, int col, int num);
+    bool isInBounds(int val);
+    int getRandomNumber(int min, int max);
 };
 #endif // BOARD_H_INCLUDED

@@ -3,13 +3,21 @@
 #include <iostream>
 #include <cstdlib>
 
-errorCodes game(Board &board) {
-    errorCodes res = OK;
-    static gameStatus status = NEW;
+errorCodes_e game(Board &board) {
+    errorCodes_e res = OK;
+    static gameStatus_e status = NEW;
     int nr = 0;
+    level_e lvl = UNKNOWN;
 
     clearConsole();
     printWelcomeMsg();
+
+    if (status == NEW) {
+        lvl = handleDifficultyLvl();
+        board.setGameLevel(lvl);
+        clearConsole();
+        printWelcomeMsg();
+    }
 
     board.print();
 
@@ -37,7 +45,26 @@ void printWelcomeMsg() {
     std::cout << "===========================================" << std::endl;
 };
 
-void printMenu(gameStatus status) {
+level_e handleDifficultyLvl() {
+    int input = 0;
+
+    std::cout << "Choose difficulty level" << std:: endl;
+    std::cout << " 1 - EASY" << std::endl;
+    std::cout << " 2 - MEDIUM" << std::endl;
+    std::cout << " 3 - HARD" << std::endl;
+
+    do {
+        std::cin >> input;
+
+        if (input < 1 || input > 3) {
+            std::cout << " Choose again" << std::endl;
+        }
+    } while (input < 1 || input > 3);
+
+    return static_cast<level_e>(input);
+};
+
+void printMenu(gameStatus_e status) {
     if (status == NEW) {
         std::cout << " 1 - enter number" << std::endl;
         std::cout << " 2 - show result" << std::endl;
@@ -58,8 +85,8 @@ void printMenu(gameStatus status) {
 
 };
 
-gameStatus menuAPI(int nr, Board &b) {
-    gameStatus status = ERROR;
+gameStatus_e menuAPI(int nr, Board &b) {
+    gameStatus_e status = ERROR;
     switch (nr) {
         case 1: {
             int row, col, val;

@@ -172,8 +172,6 @@ bool Board::solveSudoku(std::vector<std::vector<int>>& board, int row, int col) 
 };
 
 void Board::generateSudoku() {
-    int numToRemove = 40;
-
     std::srand(std::time(nullptr));
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
@@ -215,3 +213,27 @@ void Board::newGame() {
         }
     }
 };
+
+void Board::setNumToRemove(int num) {
+    this->numToRemove = num;
+};
+
+int Board::getNumToRemove() {
+    return numToRemove;
+};
+
+void Board::setGameLevel(level_e lvl) {
+    this->level = lvl;
+    if (level == EASY)
+        this->numToRemove = getRandomNumber(36,40);
+    else if (level == MEDIUM)
+        this->numToRemove = getRandomNumber(41,50);
+    else
+        this->numToRemove = getRandomNumber(51,56);
+
+    this->newGame();
+};
+
+int Board::getRandomNumber(int min, int max) {
+    return min + std::rand() % (max - min + 1);
+}

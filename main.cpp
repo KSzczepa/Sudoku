@@ -7,7 +7,7 @@
 
 using namespace std;
 
-errorCodes gameResult = OK;
+errorCodes_e gameResult = OK;
 
 int main()
 {

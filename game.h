@@ -2,24 +2,13 @@
 #define GAME_H_INCLUDED
 
 #include "board.h"
+#include "types.h"
 
-enum errorCodes {
-    OK = 0,
-    NOK = 1,
-    END = 10
-};
-
-enum gameStatus {
-    NEW,
-    IN_PROGRESS,
-    SOLVED,
-    ERROR = 10
-};
-
-errorCodes game(Board &board);
+errorCodes_e game(Board &board);
 void clearConsole();
 void printWelcomeMsg();
-void printMenu(gameStatus status);
-gameStatus menuAPI(int nr, Board &b);
+level_e handleDifficultyLvl();
+void printMenu(gameStatus_e status);
+gameStatus_e menuAPI(int nr, Board &b);
 
 #endif // GAME_H_INCLUDED
