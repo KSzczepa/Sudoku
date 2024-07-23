@@ -47,10 +47,12 @@ void printMenu(gameStatus status) {
         std::cout << " 1 - enter number" << std::endl;
         std::cout << " 2 - show result" << std::endl;
         std::cout << " 3 - start again" << std::endl;
+        std::cout << " 4 - new game" << std::endl;
         std::cout << " 0 - end game" << std::endl;
     }
     else {
         std::cout << " 3 - start again" << std::endl;
+        std::cout << " 4 - new game" << std::endl;
         std::cout << " 0 - end game" << std::endl;
     }
 
@@ -69,11 +71,15 @@ gameStatus menuAPI(int nr, Board &b) {
         }; break;
         case 2: {
             b.clearBoard();
-            b.solveSudoku();
+            b.solveSudoku(b.currentBoard);
             status = SOLVED;
         }; break;
         case 3: {
             b.clearBoard();
+            status = NEW;
+        }; break;
+        case 4: {
+            b.newGame();
             status = NEW;
         }; break;
         default: {

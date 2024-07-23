@@ -111,7 +111,7 @@ bool Board::isSafe(const std::vector<std::vector<int>>& board, int row, int col,
 };
 
 // Solving Sudoku function (backtracking algorithm)
-bool Board::solveSudoku(int row, int col) {
+bool Board::solveSudoku(std::vector<std::vector<int>>& board, int row, int col) {
     int N = 9;
 
     // Check if we have reached the 8th
@@ -131,10 +131,10 @@ bool Board::solveSudoku(int row, int col) {
     }
 
     // Check if the current position of
-    // the currentBoard already contains
+    // the board already contains
     // value >0, we iterate for next column
-    if (currentBoard[row][col] > 0)
-        return solveSudoku(row, col + 1);
+    if (board[row][col] > 0)
+        return solveSudoku(board, row, col + 1);
 
     for (int num = 1; num <= N; num++)
     {
@@ -143,20 +143,20 @@ bool Board::solveSudoku(int row, int col) {
         // the num (1-9)  in the
         // given row ,col  ->we
         // move to next column
-        if (isSafe(currentBoard, row, col, num))
+        if (isSafe(board, row, col, num))
         {
 
            /* Assigning the num in
               the current (row,col)
-              position of the currentBoard
+              position of the board
               and assuming our assigned
               num in the position
               is correct     */
-            currentBoard[row][col] = num;
+            board[row][col] = num;
 
             //  Checking for next possibility with next
             //  column
-            if (solveSudoku(row, col + 1))
+            if (solveSudoku(board, row, col + 1))
                 return true;
         }
 
@@ -165,13 +165,15 @@ bool Board::solveSudoku(int row, int col) {
         // was wrong , and we go for
         // next assumption with
         // diff num value
-        currentBoard[row][col] = 0;
+        board[row][col] = 0;
     }
     return false;
 
 };
 
 void Board::generateSudoku() {
+    int numToRemove = 40;
+
     std::srand(std::time(nullptr));
     for (int i = 0; i < 9; ++i) {
         for (int j = 0; j < 9; ++j) {
@@ -185,5 +187,31 @@ void Board::generateSudoku() {
         }
         defaultBoard[i][i] = num;
     }
-//    solveSudoku(defaultBoard);
+    solveSudoku(defaultBoard);
+    removeNumbers(defaultBoard, numToRemove);
+};
+
+void Board::removeNumbers(std::vector<std::vector<int>>& board, int numToRemove) {
+    const int SIZE = 9;
+
+    std::srand(unsigned(std::time(0)));
+    for (int i = 0; i < numToRemove; ++i) {
+        int row = std::rand() % SIZE;
+        int col = std::rand() % SIZE;
+        while (board[row][col] == 0) {
+            row = std::rand() % SIZE;
+            col = std::rand() % SIZE;
+        }
+        board[row][col] = 0;
+    }
+};
+
+void Board::newGame() {
+    generateSudoku();
+
+    for (int i = 0; i < 9; ++i) {
+        for (int j = 0; j < 9; ++j) {
+            currentBoard[i][j] = defaultBoard[i][j];
+        }
+    }
 };
