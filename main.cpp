@@ -1,11 +1,6 @@
 #include <iostream>
-#include <regex>
-#include <sstream>
-#include <cstdint>
 #include "game.h"
 #include "board.h"
-
-using namespace std;
 
 gameResult_e gameResult = OK;
 
