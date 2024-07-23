@@ -1,7 +1,7 @@
 #ifndef TYPES_H_INCLUDED
 #define TYPES_H_INCLUDED
 
-enum errorCodes_e {
+enum gameResult_e {
     OK = 0,
     NOK = 1,
     END = 10

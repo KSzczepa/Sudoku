@@ -3,8 +3,8 @@
 #include <iostream>
 #include <cstdlib>
 
-errorCodes_e game(Board &board) {
-    errorCodes_e res = OK;
+gameResult_e game(Board &board) {
+    gameResult_e res = OK;
     static gameStatus_e status = NEW;
     int nr = 0;
     level_e lvl = UNKNOWN;

@@ -4,7 +4,7 @@
 #include "board.h"
 #include "types.h"
 
-errorCodes_e game(Board &board);
+gameResult_e game(Board &board);
 void clearConsole();
 void printWelcomeMsg();
 level_e handleDifficultyLvl();
